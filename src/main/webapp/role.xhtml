@@ -1,0 +1,78 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<h:body>
+	<ui:composition template="/WEB-INF/templates/common-template.xhtml">
+
+		<ui:define name="content">
+		
+		<rich:extendedDataTable value="#{rolEditFrm.allRoles}"
+					var="roles"  id="tblRole"
+					 cellpadding="0" cellspacing="0" width="100"
+					border="1">
+					
+					<rich:column>
+					<f:facet name="header">Role_Name</f:facet>
+					
+					#{roles}
+					
+					</rich:column>
+					
+					<rich:column>
+					<a4j:commandButton name="editBtn" value="Edit" />
+					<a4j:commandButton name="delBtn" value="Delete" />
+					</rich:column>
+					</rich:extendedDataTable>
+		
+		
+		
+		
+
+
+
+			<h:form id="roleFrm">
+			
+			<h3>Create New role</h3>
+
+				<h:panelGrid columns="2" style="float: left;">
+
+
+
+					<h:outputText value="Role:" />
+					<h:inputText id="roleID"
+						value="#{rolEditFrm.role.name}" />
+
+				</h:panelGrid>
+				
+				<br/>
+				<br/>
+				
+			<rich:panel style="width:560px;">
+            <f:facet name="header">
+                <h:outputText value="permissions pick list"></h:outputText>
+            </f:facet>
+            <rich:pickList value="#{rolEditFrm.selectedPermissions}" sourceCaption="Available Permissions" targetCaption="Selected permissions" listWidth="165px" listHeight="100px" orderable="true">
+                <f:selectItems value="#{rolEditFrm.allPermissions}" var="permission" />
+              
+            </rich:pickList>
+            <a4j:commandButton value="submit" id="btnSubmit" action="#{rolEditFrm.save}" />   
+ 
+        </rich:panel>
+
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+
+</html>
+

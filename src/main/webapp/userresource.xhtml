@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+
+
+<ui:composition template="/WEB-INF/templates/common-template.xhtml">
+	<ui:define name="content">
+
+			<a4j:commandButton name="btnInsert" 
+		 value="new user" action="#{rolEditFrm.insertUserAction}" onClick="alert('going to add role')" />
+		
+		
+		<rich:dataTable value="#{userController.allUsers}" var="user"
+			id="tblUser" cellpadding="0" cellspacing="0" width="100" border="1">
+
+			<rich:column>
+				<f:facet name="header">Name</f:facet>
+					
+					#{user.name}
+					
+					</rich:column>
+					
+						<rich:column>
+				<f:facet name="header">Username</f:facet>
+					
+					#{user.username}
+					
+					</rich:column>
+
+			<rich:column>
+				<f:facet name="header">Email</f:facet>
+					
+					#{user.email}
+					
+					</rich:column>
+
+			<rich:column>
+				<f:facet name="header">Role</f:facet>
+					
+					#{user.role}
+					
+					</rich:column>
+
+			<rich:column>
+				<a4j:commandButton name="editBtn" value="Edit" />
+				<a4j:commandButton name="delBtn" value="Delete" />
+			</rich:column>
+		</rich:dataTable>
+
+		<br />
+		<br />
+
+		
+
+
+
+
+	</ui:define>
+</ui:composition>
+
+</html>

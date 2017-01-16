@@ -1,0 +1,214 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<h:body>
+		<ui:composition template="/WEB-INF/templates/common-template.xhtml">
+
+			<ui:define name="content">
+
+				<h:form id="insertFrm">
+					<a4j:jsFunction name="submitPopup" render="resTable"
+						action="#{resEditorForm.addNewSecResourceAction}">
+						<a4j:param name="param1"
+							assignTo="#{resEditorForm.secResource.type}"></a4j:param>
+						<a4j:param name="param2"
+							assignTo="#{resEditorForm.secResource.size}"></a4j:param>
+						<a4j:param name="param3"
+							assignTo="#{resEditorForm.secResource.company}"></a4j:param>
+					</a4j:jsFunction>
+
+					<table border="1">
+						<thead>
+							<tr>
+								<th>Please enter the hardware details</th>
+							</tr>
+						</thead>
+
+
+						<tr>
+							<td><h:outputText value="Resource-ID" /></td>
+							<td><h:inputText id="resID"
+									value="#{resEditorForm.resource.resource_id}" /></td>
+
+						</tr>
+
+						<tr>
+							<td><h:outputText value="Resource-Name: " /></td>
+							<td><h:selectOneMenu
+									value="#{resEditorForm.resource.resource_name}"
+									onchange="return false;">
+									<f:selectItems value="#{resEditorForm.resNameList}" />
+
+
+								</h:selectOneMenu></td>
+
+
+						</tr>
+
+						<tr>
+							<td><h:outputText value="Resource-Type:" /></td>
+							<td><h:inputText id="resType"
+									value="#{resEditorForm.resource.resource_type}" /></td>
+						</tr>
+						<tr>
+							<td><h:outputText value="Resource-Company: " /></td>
+							<td><h:inputText id="resCompany"
+									value="#{resEditorForm.resource.resource_company}" /></td>
+						</tr>
+						
+						<tr>
+							<td><h:outputText value="Ip-address: " /></td>
+							<td><h:inputText id="ipAdd"
+									value="#{resEditorForm.resource.ip_address}" /></td>
+						</tr>
+						
+						<tr>
+							<td><h:outputText value="Mac-address: " /></td>
+							<td><h:inputText id="macAdd"
+									value="#{resEditorForm.resource.mac_address}" /></td>
+						</tr>
+						
+						<tr>
+							<td><h:outputText value="Faculty " /></td>
+							<td><h:inputText id="faculty"
+									value="#{resEditorForm.resource.faculty}" /></td>
+						</tr>
+						
+						
+
+						<tr>
+							<td><h:outputText value="Installation-Date: " /></td>
+							                            
+							
+							
+						</tr>
+
+
+					</table>
+
+
+
+					<br />
+					<br />
+
+
+
+					<h:commandButton value="Add new" style="float:right"
+						onclick="#{rich:component('res_popup')}.show(); return false;" />
+
+					<h:outputText value="Attached Resource"
+						style="color:blue;float:left" />
+
+					<br />
+
+
+					<rich:popupPanel id="res_popup" modal="true" autosized="true"
+						resizeable="false">
+						<t:saveState value="#{resEditorForm.secResList}" />
+						<f:facet name="header">
+							<h:outputText value="Settings" />
+						</f:facet>
+
+
+						<fieldset id="secResShowHide">
+							<h:outputText value="Resource-Type: " />
+							<h:inputText id="secResType"
+								value="#{resEditorForm.secResource.type}" />
+							<br />
+
+							<h:outputText value="Resource-Size: " />
+							<h:inputText id="secResSize"
+								value="#{resEditorForm.secResource.size}" />
+							<br />
+
+							<h:outputText value="Resource-Company: " />
+							<h:inputText id="secResCompany"
+								value="#{resEditorForm.secResource.company}" />
+						</fieldset>
+
+
+
+						<h:panelGrid columns="2">
+							<h:commandButton value="Ok" style="float: left"
+								onclick="submitPopup(document.getElementById('insertFrm:secResType').value,document.getElementById('insertFrm:secResSize').value,document.getElementById('insertFrm:secResCompany').value);#{rich:component('res_popup')}.hide();return false;" />
+
+							<h:commandButton value="cancel" style="float:right"
+								onclick="#{rich:component('res_popup')}.hide();return false;" />
+						</h:panelGrid>
+
+
+
+
+
+
+
+
+					</rich:popupPanel>
+
+					<rich:dataTable id="resTable" value="#{resEditorForm.secResList}"
+						var="secondaryRes" cellpadding="0" cellspacing="0"
+						style="width:100%" border="1">
+
+
+
+
+						<rich:column>
+							<f:facet name="header">Type</f:facet>
+					
+            #{secondaryRes.type}
+           
+         </rich:column>
+						<rich:column>
+							<f:facet name="header">Size</f:facet>
+					
+            #{secondaryRes.size}
+            
+         </rich:column>
+						<rich:column>
+							<f:facet name="header">Company</f:facet>
+					
+            #{secondaryRes.company}
+            
+         </rich:column>
+
+
+
+					</rich:dataTable>
+
+
+
+
+
+
+
+
+					<h:link style="float:left" value="Back" outcome="Welcome_New"></h:link>
+					<h:commandButton value="save" style="float: right"
+						action="#{resEditorForm.save}" reRender="resTable" rendered="#{param.update==null}" />
+
+					<h:commandButton value="cancel" style="float: right"
+						action="#{resEditorForm.cancelAction}" reRender="resTable" />
+						
+						<h:commandButton value="Update" style="float: right"
+						action="#{resEditorForm.updateResource}"
+						rendered="#{param.update!=null}" />
+
+
+				</h:form>
+			</ui:define>
+		</ui:composition>
+
+	</h:body>
+
+</ui:composition>
+

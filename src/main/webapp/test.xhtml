@@ -1,0 +1,25 @@
+
+
+<h:inputText id="1" value="propertiform.fieldset[0].name"></h:inputText>
+<h:inputText id="1" value="propertiform.fieldset[0].fields[0].name"></h:inputText>
+<h:inputText id="1" value="propertiform.fieldset[0].fields[0].name"></h:inputText>
+
+
+
+for (Field fieldSet: propertyform.fieldsets){
+
+	<h:inputText id="1" value="fieldset.name"></h:inputText>
+
+		for(Field field: fieldSets.getFields())
+		{
+			  <h:inputText id="1" value="field.name"></h:inputText>
+				<h:inputText id="1" value="field.name"></h:inputText>
+		}
+
+	<a4j:commandButton value="Add"
+				action="#{propertiesForm.addField}" render="insertFrm"
+			>
+	<f:setPropertyActionListener target="#{propertiesForm.selectedFieldId}"  value="#{fieldset.id}" />
+	</a4j:commandButton>
+
+}
